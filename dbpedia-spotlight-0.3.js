@@ -125,6 +125,10 @@ function sortOffset(a,b){
                var classes = "annotation";
 
                snippet += "<div id='"+(sfName+offset)+"' class='" + classes + "'><a class='surfaceForm'>" + sfName + "</a>";
+               // reverse candidates for Spotlight 1.0
+               if (typeof e.resource.reverse === 'function') {
+                   e.resource.reverse();
+               }
                var ul = Parser.getSelectBox($(e.resource),'candidate');
                //ul.children().each(function() { console.log($.data($(this),"testProp")); });
                snippet += "<ul class='candidates'>"+ul.html()+"</ul>"; //FIXME this wrapper is a repeat from getSelectBox
