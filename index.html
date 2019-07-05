@@ -496,10 +496,8 @@ $(document).ready(function() {
     $('#edit_text_wrapper').hide();
 
     //accept parameters from URL
-    var t = $(document).getUrlParam('text');
+    var url_text = $(document).getUrlParam('text');
     var execute = ($(document).getUrlParam('execute') == "yes");
-
-    if ($.trim(t)!='' && t != "null") { $('#text').val(decodeURIComponent(t)); }
 
     $('textarea#text').autoResize({
         // On resize:
@@ -612,9 +610,13 @@ $(document).ready(function() {
     }
     
     $('#annotation_language').change(function() {
-       
+
         var current_data=$("body").data($(this).val());
-           select_language(current_data.endpoint, current_data.content, $(this).val()); 
+        var current_text = current_data.content;
+        if ($.trim(url_text) != '' && url_text != "null") {
+            current_text = decodeURIComponent(url_text);
+        }
+        select_language(current_data.endpoint, current_text, $(this).val());
 
     });
     
@@ -767,8 +769,6 @@ $(document).ready(function() {
         title : "Bookmarklet"
       });
     });
-
-
 
     if (execute) {
         runWithSettings();
